@@ -1,0 +1,34 @@
+.school-container {
+  padding: 20px;
+}
+
+.school-title {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+.school-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+}
+
+.school-form input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.school-form button {
+  padding: 10px;
+  background: #1677ff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.school-form button:hover {
+  background: #0958d9;
+}

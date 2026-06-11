@@ -1,0 +1,393 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap');
+
+/* ═══════════════════════════════════════════
+   RESET & VARIABLES
+═══════════════════════════════════════════ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --blue:        #1677ff;
+  --blue-dark:   #0e5fd8;
+  --blue-light:  #e6f0ff;
+  --blue-mid:    #d0e2ff;
+  --bg:          #f0f5ff;
+  --surface:     #ffffff;
+  --sidebar-bg:  #0d1b3e;
+  --sidebar-w:   240px;
+  --sidebar-w-c: 68px;          /* collapsed width */
+  --topbar-h:    60px;
+  --text-dark:   #0d1b3e;
+  --text-mid:    #3d5491;
+  --text-muted:  #7a8fbc;
+  --border:      #d0e2ff;
+  --radius:      12px;
+  --transition:  0.22s ease;
+}
+
+/* ═══════════════════════════════════════════
+   SHELL — full-viewport layout
+═══════════════════════════════════════════ */
+.admin-shell {
+  display: flex;
+  min-height: 100vh;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+}
+
+/* ═══════════════════════════════════════════
+   SIDEBAR
+═══════════════════════════════════════════ */
+.admin-sidebar {
+  width: var(--sidebar-w);
+  min-height: 100vh;
+  background: var(--sidebar-bg);
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0; left: 0;
+  z-index: 100;
+  transition: width var(--transition);
+  overflow: hidden;
+}
+
+.admin-shell--collapsed .admin-sidebar {
+  width: var(--sidebar-w-c);
+}
+
+/* Brand */
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 16px 18px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.brand-icon {
+  width: 36px;
+  height: 36px;
+  background: var(--blue);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.brand-name {
+  font-family: 'DM Serif Display', serif;
+  font-size: 18px;
+  color: #ffffff;
+  letter-spacing: 0.01em;
+  opacity: 1;
+  transition: opacity var(--transition);
+}
+
+.admin-shell--collapsed .brand-name {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Nav section label */
+.nav-section-label {
+  display: block;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.3);
+  padding: 18px 18px 8px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* Navigation */
+.sidebar-nav {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 4px 10px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 10px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: rgba(255,255,255,0.55);
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+  transition: background var(--transition), color var(--transition);
+  margin-bottom: 2px;
+}
+
+.sidebar-link:hover {
+  background: rgba(255,255,255,0.07);
+  color: rgba(255,255,255,0.85);
+}
+
+.sidebar-link--active {
+  background: rgba(22, 119, 255, 0.18);
+  color: #ffffff;
+}
+
+.sidebar-link--active::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 20%; bottom: 20%;
+  width: 3px;
+  background: var(--blue);
+  border-radius: 0 3px 3px 0;
+}
+
+.sidebar-link-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+}
+
+.sidebar-link-label {
+  flex: 1;
+  transition: opacity var(--transition);
+}
+
+.admin-shell--collapsed .sidebar-link-label,
+.admin-shell--collapsed .sidebar-link-arrow {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.sidebar-link-arrow {
+  margin-left: auto;
+  opacity: 0.3;
+  transition: opacity var(--transition);
+}
+
+.sidebar-link--active .sidebar-link-arrow,
+.sidebar-link:hover .sidebar-link-arrow {
+  opacity: 0.6;
+}
+
+/* Footer */
+.sidebar-footer {
+  padding: 12px 10px 20px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+
+.sidebar-logout {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 10px;
+  border-radius: 10px;
+  background: transparent;
+  border: none;
+  color: rgba(255,255,255,0.45);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: background var(--transition), color var(--transition);
+}
+
+.sidebar-logout:hover {
+  background: rgba(255, 80, 80, 0.12);
+  color: #ff7875;
+}
+
+.admin-shell--collapsed .sidebar-logout span {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════
+   MAIN AREA
+═══════════════════════════════════════════ */
+.admin-main {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  transition: margin-left var(--transition);
+}
+
+.admin-shell--collapsed .admin-main {
+  margin-left: var(--sidebar-w-c);
+}
+
+/* ═══════════════════════════════════════════
+   TOPBAR
+═══════════════════════════════════════════ */
+.admin-topbar {
+  height: var(--topbar-h);
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  gap: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+/* Toggle button */
+.topbar-toggle {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid var(--border);
+  border-radius: 9px;
+  background: var(--bg);
+  color: var(--text-mid);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background var(--transition), border-color var(--transition), color var(--transition);
+}
+
+.topbar-toggle:hover {
+  background: var(--blue-light);
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+/* Breadcrumb title */
+.topbar-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+}
+
+.topbar-section {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+.topbar-page {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+
+/* Profile cluster */
+.topbar-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-left: auto;
+}
+
+/* Notifications bell */
+.topbar-notifications {
+  position: relative;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid var(--border);
+  border-radius: 9px;
+  background: var(--bg);
+  color: var(--text-mid);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition);
+}
+
+.topbar-notifications:hover {
+  background: var(--blue-light);
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.notif-dot {
+  position: absolute;
+  top: 7px; right: 7px;
+  width: 7px; height: 7px;
+  background: #ff4d4f;
+  border-radius: 50%;
+  border: 1.5px solid #fff;
+}
+
+/* Avatar */
+.topbar-avatar {
+  width: 36px;
+  height: 36px;
+  background: var(--blue);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+  flex-shrink: 0;
+  letter-spacing: 0.02em;
+}
+
+/* User info */
+.topbar-user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar-username {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-dark);
+  line-height: 1.2;
+}
+
+.topbar-role {
+  font-size: 11px;
+  color: var(--text-muted);
+  line-height: 1.2;
+}
+
+/* ═══════════════════════════════════════════
+   PAGE CONTENT AREA
+═══════════════════════════════════════════ */
+.admin-content {
+  flex: 1;
+  padding: 28px 28px;
+  background: var(--bg);
+}
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+@media (max-width: 768px) {
+  .admin-sidebar {
+    transform: translateX(-100%);
+    width: var(--sidebar-w) !important;
+  }
+
+  .admin-shell--collapsed .admin-sidebar {
+    transform: translateX(0);
+  }
+
+  .admin-main {
+    margin-left: 0 !important;
+  }
+
+  .topbar-user-info {
+    display: none;
+  }
+}

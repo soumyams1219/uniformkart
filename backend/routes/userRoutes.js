@@ -1,0 +1,12 @@
+import { Usercreate } from "../controllers/UserController.js";
+import { userupdate } from "../controllers/UserController.js";
+import { userview } from "../controllers/UserController.js";
+import { userdelete } from "../controllers/UserController.js";
+import { userAuthorization } from "../middleware/userAuth.js";
+import express from "express";
+const router = express.Router();
+router.post("/user-create", Usercreate);
+router.put("/user-update", userAuthorization(["user"]), userupdate);
+router.get("/user-view", userAuthorization(["user", "admin"]), userview);
+router.delete("/user-delete", userAuthorization(["user"]), userdelete);
+export default router;

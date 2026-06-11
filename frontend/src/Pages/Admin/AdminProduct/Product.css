@@ -1,0 +1,31 @@
+.product-container {
+  padding: 20px;
+}
+
+.product-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+}
+
+.product-form input,
+.product-form textarea,
+.product-form .ant-select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.product-form button {
+  padding: 10px;
+  background: #1677ff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.product-form button:hover {
+  background: #0958d9;
+}
